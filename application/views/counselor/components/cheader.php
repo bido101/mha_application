@@ -91,6 +91,12 @@
 										<li>
 											<a href="<?php echo site_url('/counselor/list_of_student_assessment?id=1'); ?>">Assessements</a>
 										</li>
+										<li>
+											<a href="<?php echo site_url('/counselor/reports'); ?>" <?php if ($isActiveSideBar == 'isForReports'){echo 'class="current-page"'; } ?>>Analytics Reports</a>
+										</li>
+										<li>
+											<a href="<?php echo site_url('/counselor/settings?str=profile'); ?>" <?php if ($isActiveSideBar == 'isForSettings'){echo 'class="current-page"'; } ?>>Settings</a>
+										</li>
 									</ul>
 								</div>
 							</li>

@@ -100,7 +100,7 @@
 											<a href="<?php echo site_url('/admin/courses'); ?>" <?php if ($isActiveSideBar == 'isForCourseManagement'){echo 'class="current-page"'; } ?>>Course Management</a>
 										</li>
 										<li>
-											<a href="">Settings</a>
+											<a href="<?php echo site_url('admin/settings?str=profile'); ?>" <?php if ($isActiveSideBar == 'isForSettings'){echo 'class="current-page"'; } ?>>Settings</a>
 										</li>
 									</ul>
 								</div>

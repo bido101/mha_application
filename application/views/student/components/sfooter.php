@@ -87,6 +87,34 @@
 		      });
 		    </script>
 		<?php endif ?>
+		<!-- Notification for user profile Panel -start- -->
+		<?php if ($this->session->flashdata('messageupdateProfile')): ?>
+			<script type="text/javascript">
+		      $(function(){
+		        	toastr.success("Successfully Inserted");
+		      });
+		    </script>
+		<?php elseif($this->session->flashdata('errorToUpdateProfile')): ?>
+			<script type="text/javascript">
+		      $(function(){
+		        	toastr.error("Error to Update Profile");
+		      });
+		    </script>
+		<?php endif ?>
+		<!-- Notification for user profile Panel -start- -->
+	
+		<script>
+		  var loadFile = function(event) {
+		  var reader = new FileReader();
+		      reader.onload = function(){
+		          var output = document.getElementById('output');
+		                          
+		          output.src = reader.result;
+
+		      };
+		      reader.readAsDataURL(event.target.files[0]);
+		  };
+		</script>
 	</body>
 
 </html>

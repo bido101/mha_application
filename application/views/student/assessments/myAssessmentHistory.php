@@ -6,12 +6,11 @@
 		<div class="col-sm-10">
 			<div class="card"  style="padding-left: 10px;padding-right: 10px;">
 				<div class="card-header">
-					<div class="card-title">My Assessment</div>
+					<div class="card-title">Assessment History</div>
 					<hr>
 				</div>
 				<div class="card-body p-0">
-					<?php foreach ($pre_assess as $pavalue): ?>
-						<?php if ($pavalue['assessment_status'] == 1): ?>						
+					<?php foreach ($pre_assess as $pavalue): ?>						
 							<div class="row">
 								<div class="col-sm-6">
 									<?php foreach ($category as $cvalue): ?>
@@ -95,7 +94,6 @@
 									</div>
 								</div>
 							</div>
-						<?php endif ?>
 					<?php endforeach ?>
 					<br>
 				</div>

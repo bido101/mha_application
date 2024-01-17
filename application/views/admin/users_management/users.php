@@ -122,7 +122,7 @@
 											<a href="#" class="icon blue" data-toggle="modal" data-placement="top" title="" data-original-title="Add Row" data-target="#editQuestionModal<?php echo $user['userID']; ?>">
 												<i class="icon-pencil"></i>											
 											</a>
-											<a href="" class="icon red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Row" onclick="alert('Are you sure you want to delete this data?')">
+											<a href="<?php echo site_url('admin/removeUsers?userID='.$user['userID']); ?>" class="icon red" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete Row" onclick="alert('Are you sure you want to delete this data?')">
 												<i class="icon-cancel"></i>
 											</a>
 										</div>

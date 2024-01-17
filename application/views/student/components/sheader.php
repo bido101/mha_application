@@ -90,11 +90,14 @@
 										</li>
 										<li>
 											<a href="<?php echo site_url('/student/my_assessment') ?>" <?php if ($isActiveSideBar == 'isForMyAssessment'){echo 'class="current-page"'; } ?>>
-												My Assessment <span class="badge badge-pill badge-white">0</span>
+												My Assessment
 											</a>
 										</li>
 										<li>
-											<a href="">Assessment History</a>
+											<a href="<?php echo site_url('/student/assessment_history'); ?>" <?php if ($isActiveSideBar == 'isForMyHistoryAssessment'){echo 'class="current-page"'; } ?>>Assessment History</a>
+										</li>
+										<li>
+											<a href="<?php echo site_url('/student/settings?str=profile'); ?>" <?php if ($isActiveSideBar == 'isForSettings'){echo 'class="current-page"'; } ?>>Settings</a>
 										</li>
 									</ul>
 								</div>

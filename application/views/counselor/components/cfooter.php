@@ -68,6 +68,10 @@
 		<script src="<?php echo site_url('resort/dashboard_assets/djs/main.js'); ?>"></script>
 		<script src="<?php echo base_url('resort/assets/js/toastr.min.js'); ?>"></script>
 
+		<!-- Apex Charts -->
+		<script src="<?php echo site_url('resort/dashboard_assets/vendor/apex/apexcharts.min.js'); ?>"></script>
+
+
 		<?php if ($this->session->flashdata('successSubmittedAssessment')): ?>
 		    <script type="text/javascript">
 		      $(function(){
@@ -111,6 +115,123 @@
 		      });
 		    </script>
 		<?php endif ?>
+		<!-- Notification for user profile Panel -start- -->
+		<?php if ($this->session->flashdata('messageupdateProfile')): ?>
+			<script type="text/javascript">
+		      $(function(){
+		        	toastr.success("Successfully Inserted");
+		      });
+		    </script>
+		<?php elseif($this->session->flashdata('errorToUpdateProfile')): ?>
+			<script type="text/javascript">
+		      $(function(){
+		        	toastr.error("Error to Update Profile");
+		      });
+		    </script>
+		<?php endif ?>
+		<!-- Notification for user profile Panel -start- -->
+		<script>
+		  var loadFile = function(event) {
+		  var reader = new FileReader();
+		      reader.onload = function(){
+		          var output = document.getElementById('output');
+		                          
+		          output.src = reader.result;
+
+		      };
+		      reader.readAsDataURL(event.target.files[0]);
+		  };
+		</script>
+
+		<script type="text/javascript">
+			var options = {
+				chart: {
+					width: 400,
+					type: 'pie',
+				},
+				labels: [<?php foreach ($departments as $department) {echo '"'.strtoupper($department['departmentAbbreviation']).'",';}?>],
+				series: [
+							<?php  
+								foreach ($departments as $department) {
+									$res = 0;
+									foreach ($assessments as $assessment) {
+										if ($department['dID'] == $assessment['deptID']) {
+												$res += 1;
+										}
+									}	
+									echo $res.',';
+								}	
+							?>
+						],
+				responsive: [{
+					breakpoint: 480,
+					options: {
+						chart: {
+							width: 200
+						},
+						legend: {
+							position: 'bottom'
+						}
+					}
+				}],
+				stroke: {
+					width: 0,
+				},
+				fill: {
+					type: 'gradient',
+				},
+				colors: ['#1a8e5f', '#262b31', '#434950', '#63686f', '#868a90'],
+			}
+			var chart = new ApexCharts(
+				document.querySelector("#basic-pie-graph-gradient"),
+				options
+			);
+			chart.render();
+		</script>
+
+		<script type="text/javascript">
+			var options = {
+				chart: {
+					width: 400,
+					type: 'pie',
+				},
+				labels: [<?php foreach ($courses as $course) {echo '"'.strtoupper($course['courseAbbreviation']).'",';}?>],
+				series: [
+							<?php  
+								foreach ($courses as $course) {
+									$res = 0;
+									foreach ($assessments as $assessment) {
+										if ($course['cID'] == $assessment['courseID']) {
+												$res += 1;
+										}
+									}	
+									echo $res.',';
+								}	
+							?>
+						],
+				responsive: [{
+					breakpoint: 480,
+					options: {
+						chart: {
+							width: 200
+						},
+						legend: {
+							position: 'bottom'
+						}
+					}
+				}],
+				stroke: {
+					width: 0,
+				},
+				colors: ['#1a8e5f', '#262b31', '#434950', '#63686f', '#868a90'],
+			}
+			var chart = new ApexCharts(
+				document.querySelector("#basic-pie-graph"),
+				options
+			);
+			chart.render();
+		</script>
+
 	</body>
 
 </html>
