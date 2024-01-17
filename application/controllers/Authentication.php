@@ -78,6 +78,7 @@ class Authentication extends CI_Controller {
 					'firstName' => $this->input->post('firstName'),
 					'middleName' => $this->input->post('middleName'),
 					'lastName' => $this->input->post('lastName'),
+					'courseID' => $this->input->post('courseID'),
 					'email' => $this->input->post('email'),
 					'password' => sha1($this->input->post('password')),
 					'role' => 'student'

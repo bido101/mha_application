@@ -95,4 +95,116 @@ class Student extends CI_Controller {
 		$this->load->view('student/assessments/myAssessment.php', $data);
 		$this->load->view('student/components/sfooter.php', $data);
 	}
+	public function assessment_history(){
+		$data = [
+			'title' => 'Mental Health Assessment - Dashboard',
+			'isActiveSideBar' => 'isForMyHistoryAssessment',
+			'pagination' => 'Assessment History',
+			'pre_assess' => $this->questions->__getMyAnswerOnPreAssessment(),
+			'category' => $this->questions->__getCategories(),
+			'allquestions' => $this->questions->__getAllQuestions(),
+		];
+		// dd($data['pre_assess']);
+		$this->load->view('student/components/sheader.php', $data);
+		$this->load->view('student/assessments/myAssessmentHistory.php', $data);
+		$this->load->view('student/components/sfooter.php', $data);
+	}
+	public function settings(){
+		$data = [
+			'title' => 'Mental Health Assessment - Settings',
+			'isActiveSideBar' => 'isForSettings',
+			'pagination' => 'Settings',
+			'isActiveTab' => 'forSettings',
+			'myProfile' => $this->users->__getMyProfile(),
+			'courses' => $this->courses->__getAllCourses()
+		];
+		// dd($data['myProfile']);
+		$this->load->view('student/components/sheader.php', $data);
+		$this->load->view('student/settings/settings.php', $data);
+		$this->load->view('student/components/sfooter.php', $data);
+	}
+	public function updateProfile(){
+		if (isset($_POST['btnUpdateProfile'])) {
+			$userID = $this->input->get('userID');	
+				$data_reg = array(
+					'firstName' => $this->input->post('firstName'),
+					'middleName' => $this->input->post('middleName'),
+					'lastName' => $this->input->post('lastName'),
+					'email' => $this->input->post('email'),
+					'address' => $this->input->post('address'),
+					'bDay' => $this->input->post('bDay'),
+					'courseID' => $this->input->post('courseID')
+				);
+				
+				$res = $this->users->__updateUsers($userID, $data_reg);
+
+				if ($res == 'success') {
+					$this->session->set_flashdata('messageupdateProfile', 'Successfully Inserted');
+				}elseif($res == 'error'){
+					$this->session->set_flashdata('errorToUpdateProfile', 'Error to Update Profile');
+				}
+				
+				redirect('student/settings?str=profile');
+		}
+	}
+	public function updatePassword(){
+		if (isset($_POST['btnUpdatePassword'])) {
+			$userID = $this->input->get('userID');	
+				
+			$this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
+			$this->form_validation->set_rules('confirmPassword', 'Password Confirmation', 'required|matches[password]');
+
+			if ($this->form_validation->run() == TRUE) {
+
+				$data_reg = array(
+					'password' => sha1($this->input->post('password'))
+				);
+
+				$res = $this->users->__updateUsers($userID, $data_reg);
+
+				if ($res == 'success') {
+					$this->session->set_flashdata('messageupdateProfile', 'Successfully Inserted');
+				}elseif($res == 'error'){
+					$this->session->set_flashdata('errorToUpdateProfile', 'Error to Update Profile');
+				}
+				
+			}else{
+				$this->session->set_flashdata('errorregmessage', 'Error');
+			}
+		}
+		
+		redirect('student/settings?str=profile');
+	}
+	public function updateProfilePicture(){
+		
+		$userID = $this->input->get('userID');
+
+		if (isset($_POST['btnUpdatePic'])) {
+			$config['upload_path']          = 'resort/dashboard_assets/img/users_picture/';
+			$config['allowed_types']        = 'gif|jpg|png|jpeg';
+			$config['overwrite'] = TRUE;
+			$this->upload->initialize($config);
+			$this->upload->do_upload('profilePicture');
+
+			$path =  'resort/dashboard_assets/img/users_picture';
+			$file_path = $path.'/'.$this->upload->data('file_name');
+		
+			$profile = array(
+				'profilePicture' => $file_path
+			);
+
+			$isInserted = $this->users->__uploadProfilePicture($userID, $profile);
+
+			if ($isInserted == 'success') {
+				$this->session->set_flashdata('messageupdateProfile', 'Successfully Inserted');
+			}elseif($res == 'error'){
+				$this->session->set_flashdata('errorToUpdateProfile', 'Error to Update Profile');
+			}
+		}else{
+			$this->session->set_flashdata('errorregmessage', 'Error');
+		}
+
+		redirect('student/settings?str=profile');
+
+	}
 }

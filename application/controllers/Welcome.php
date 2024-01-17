@@ -20,6 +20,10 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('landing_page/main_page.php');
+		$data = [
+			'courses' => $this->courses->__getAllCourses()
+		];
+
+		$this->load->view('landing_page/main_page.php', $data);
 	}
 }
