@@ -89,4 +89,13 @@ class Questions extends CI_Model {
 
 		if ($res) {return 'success';}else{return 'error';}
 	}
+	public function __getReports(){
+		$this->db->select('assessment.*, users.firstName, users.lastName, users.middleName, users.courseID, courses.deptID');
+		$this->db->from($this->tableAssessment);
+		$this->db->join('users', 'assessment.studID = users.userID');
+		$this->db->join('courses', 'users.courseID = courses.cID');
+		$query = $this->db->get();
+
+		return $query->result_array();
+	}
 }
